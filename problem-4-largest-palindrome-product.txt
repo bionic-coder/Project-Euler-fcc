@@ -1,0 +1,57 @@
+function largestPalindromeProduct(n) {
+// 10^n is smallest & 10^(n+1)-1 is largest
+  var product;
+  var numLength;
+  var isPallindrome=false;
+  var lp=0;
+
+  for(var i = 10**(n-1); i<(10**n); i++){
+    for(var j = 10**(n-1); j<(10**n); j++){
+      product = i*j;
+      isPallindrome = false;
+      if(product%11 == 0){
+        numLength = calcNumberLength(product);
+        if(numLength%2 == 0){
+          //console.log(i + " * " + j + " = "+ product)
+          //console.log(product);
+          isPallindrome = checkPallindrome(product, numLength);
+        }
+      
+      }
+      if(isPallindrome && product>lp){
+        lp = product;
+      }
+    }
+    
+  }
+
+  console.log(lp)
+  return lp;
+}
+
+function calcNumberLength(number){
+  var length =0;
+  while(number>0){
+    number = Math.floor(number/10);
+    length++;
+  }
+  //console.log(length)
+  return length;
+}
+
+function checkPallindrome(number, len){
+  var flag = true;
+  var numStr = ''+ number;
+  for(var i=0; i<len/2; i++){
+    if(numStr[i] != numStr[len-1-i]){
+      flag = false;
+      break;
+    }
+  }
+  if(flag){
+    //console.log(number+' is palindrome')
+  }
+  return flag;
+}
+
+largestPalindromeProduct(3);
